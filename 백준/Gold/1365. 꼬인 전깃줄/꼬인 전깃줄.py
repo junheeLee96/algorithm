@@ -1,8 +1,8 @@
 from bisect import bisect_left
 
-
 n = int(input())
-arr = list(map(int, input().split(" ")))
+
+arr = list(map(int, input().split()))
 
 dp = [arr[0]]
 
@@ -12,6 +12,4 @@ for i in range(1, len(arr)):
     else:
         idx = bisect_left(dp, arr[i])
         dp[idx] = arr[i]
-
-
 print(n - len(dp))
