@@ -7,7 +7,7 @@ arr = list(map(int, input().split()))
 dp = []
 
 for i in arr:
-    if not dp or i > dp[-1]:
+    if not dp or dp[-1] < i:
         dp.append(i)
     else:
         dp[bisect_left(dp, i)] = i
