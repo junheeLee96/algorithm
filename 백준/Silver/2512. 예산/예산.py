@@ -1,32 +1,31 @@
 n = int(input())
 
 arr = list(map(int, input().split()))
-money = int(input())
 
-start = 0
-end = max(arr)
+m = int(input())
 
-max_log = 0
-
-if sum(arr) <= money:
+if sum(arr) <= m:
     print(max(arr))
 
+
 else:
-    while start <= end and start <= money:
+    start = 0
+    end = max(arr)
+
+    while start <= end and start <= m:
         mid = (start + end) // 2
 
         log = 0
-        for i in arr:
-            if i > mid:
+
+        for i in range(len(arr)):
+            if arr[i] > mid:
                 log += mid
             else:
-                log += i
-        if log <= money:
-            if max_log < log:
-                max_log = log
+                log += arr[i]
+
+        if log <= m:
             start = mid + 1
         else:
             end = mid - 1
 
     print(end)
-# print(max_log)
