@@ -1,27 +1,25 @@
 import math
 
-X, Y = map(int, input().split())
+x, y = map(int, input().split())
 
+z = (y * 100) // x
 
-Z = (Y * 100) // X
-
-if Z >= 99:
+if z >= 99:
     print(-1)
 else:
+    answer = math.inf  # 최솟값을 찾아야 하므로 무한대로 초기화
 
-    right = X
-    left = 1
+    start, end = 1, 1000000000  # 이분 탐색의 범위를 수정
 
-    answer = 0
+    while start <= end:
+        mid = (start + end) // 2
 
-    while left <= right:
+        new_z = ((y + mid) * 100) // (x + mid)
 
-        mid = (left + right) // 2
-
-        if (Y + mid) * 100 // (X + mid) <= Z:
-            left = mid+1
+        if new_z <= z:
+            start = mid + 1
         else:
-            answer = mid
-            right = mid - 1
+            end = mid - 1
+            answer = min(answer, mid)
 
     print(answer)
