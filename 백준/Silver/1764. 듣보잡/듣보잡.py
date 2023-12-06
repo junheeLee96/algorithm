@@ -3,20 +3,16 @@ n, m = map(int, input().split())
 dic = {}
 
 arr = []
+arr2 = []
+for _ in range(n):
+    arr.append(input())
 
-for i in range(n):
-    s = input()
+for _ in range(m):
+    arr2.append(input())
 
-    dic[s] = i
+inter = list(set(arr) & set(arr2))
 
-for i in range(m):
-    s = input()
-
-    if s in dic:
-        arr.append(s)
-
-
-arr.sort()
-print(len(arr))
-for i in arr:
+print(len(inter))
+inter.sort()
+for i in inter:
     print(i)
