@@ -1,5 +1,6 @@
+import sys
+input = sys.stdin.readline
 n, m = map(int, input().split())
-
 arr = []
 
 for _ in range(m):
@@ -8,18 +9,23 @@ for _ in range(m):
 start = 1
 end = sum(arr)
 
+answer = float('inf')
 while start <= end:
     mid = (start + end) // 2
+
     temp = 0
+
     for i in arr:
         if i % mid == 0:
-            temp = temp + i // mid
+            temp += i // mid
         else:
-            temp = temp + (i // mid) + 1
+            temp += (i // mid) + 1
 
     if temp > n:
-        start = mid+1
+        start = mid + 1
+
     else:
+        answer = min(answer, mid)
         end = mid - 1
 
-print(start)
+print(answer)
