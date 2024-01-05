@@ -6,10 +6,10 @@ arr = list(map(int, input().split()))
 
 dp = []
 
-for i in arr:
-    if not dp or dp[-1] < i:
-        dp.append(i)
+for i in range(n):
+    if not dp or dp[-1] < arr[i]:
+        dp.append(arr[i])
     else:
-        dp[bisect_left(dp, i)] = i
+        dp[bisect_left(dp, arr[i])] = arr[i]
 
 print(len(dp))
