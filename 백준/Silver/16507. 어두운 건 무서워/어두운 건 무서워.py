@@ -1,21 +1,26 @@
-r, c, t = map(int, input().split())
+n, m, q = map(int, input().split())
 
-arr = []
+arr = [[0 for _ in range(m)]]
 
-for _ in range(r):
-    arr.append(list(map(int, input().split())))
+for _ in range(n):
+    l = [0] + list(map(int, input().split()))
+    # print(l)
+    arr.append(l)
 
-dp = [[0 for _ in range(c + 1)] for _ in range(r+1)]
+dp = [[0 for _ in range(m+1)] for _ in range(n+1)]
 
-for i in range(1, r+1):
-    for j in range(1, c+1):
-        dp[i][j] = dp[i-1][j] + dp[i][j-1] - dp[i-1][j-1] + arr[i-1][j-1]
 
-for _ in range(t):
-    r1, c1, r2, c2 = map(int, input().split())
+for i in range(1, n+1):
+    for j in range(1, m+1):
+        dp[i][j] = dp[i-1][j] + dp[i][j-1] + arr[i][j] - dp[i-1][j-1]
 
-    num = dp[r2][c2] + dp[r1-1][c1-1] - dp[r1-1][c2] - dp[r2][c1-1]
+for _ in range(q):
+    l = list(map(int, input().split()))
 
-    division = ((r2 - r1) + 1) * ((c2 - c1) + 1)
+    x1, y1, x2, y2 = l[0], l[1], l[2], l[3]
 
-    print(num // division)
+    num = dp[x2][y2] + dp[x1-1][y1-1] - dp[x1 - 1][y2] - dp[x2][y1 - 1]
+
+    div = ((x2 - x1) + 1) * ((y2 - y1) + 1)
+
+    print(num // div)
