@@ -1,70 +1,85 @@
-from collections import deque
+import sys
 from itertools import combinations
-import copy
+from copy import deepcopy
+from collections import deque
+input = sys.stdin.readline
+
+
 n, m = map(int, input().split())
-
-
-empty = []
-virus = []
-wall = []
-
 arr = []
+empty = []
+wall = []
+vi = []
+
+dx = [0, 0, 1, -1]
+dy = [-1, 1, 0, 0]
 
 for i in range(n):
-    a = list(map(int, input().split()))
-    arr.append(a)
-    for j in range(len(a)):
-        if a[j] == 2:
-            virus.append([i, j])
-        elif a[j] == 1:
-            wall.append([i, j])
-        else:
+    l = list(map(int, input().split()))
+    arr.append(l)
+    for j in range(m):
+        if l[j] == 0:
             empty.append([i, j])
 
-dx = [0, 0, -1, 1]
-dy = [1, -1, 0, 0]
+        if l[j] == 1:
+            wall.append([i, j])
 
-max_cnt = 0
+        if l[j] == 2:
+            vi.append([i, j])
 
-for i in combinations(empty, 3):
-    # print(i[0])
-    # cnt += 1
-    cnt = 0
-    graph = copy.deepcopy(arr)
-    # graph[i[0][0]][i[0][1]] =
-    one = i[0]
-    tow = i[1]
-    three = i[2]
 
-    # print(one)
-    graph[one[0]][one[1]] = 1
-    graph[tow[0]][tow[1]] = 1
-    graph[three[0]][three[1]] = 1
+def func(lst):
 
-    q = deque()
+    cop = deepcopy(arr)
 
-    for v in virus:
-        q.append((v[0], v[1]))
-
-    while q:
-        x, y = q.popleft()
-
-        for dir in range(4):
-            nx = x + dx[dir]
-            ny = y + dy[dir]
-            if 0 <= nx < n and 0 <= ny < m:
-                if graph[nx][ny] == 0:
-                    q.append((nx, ny))
-                    graph[nx][ny] = 2
-
-    for col in graph:
-        for row in col:
-            if row == 0:
-                cnt += 1
-
-    if max_cnt < cnt:
+    # print(cop)
+    for i in lst:
         # print(i)
-        max_cnt = cnt
+        x, y = i[0], i[1]
+        # print(f'x = {x} y = {y}')
+        cop[x][y] = 1
+    # return
+
+    visit = [[False for _ in range(m)] for _ in range(n)]
+
+    for i in range(n):
+        for j in range(m):
+            if cop[i][j] == 2:
+
+                q = deque()
+                q.append((i, j))
+                visit[i][j] = True
+
+                while q:
+
+                    x, y = q.popleft()
+                    # cop[x][y] = 2
+                    for k in range(4):
+                        nx = x + dx[k]
+                        ny = y + dy[k]
+
+                        if 0 <= nx < n and 0 <= ny < m and visit[nx][ny] == False and cop[nx][ny] == 0:
+                            visit[nx][ny] = True
+                            q.append((nx, ny))
+    cnt = 0
+
+    for i in range(n):
+        for j in range(m):
+            if visit[i][j] == False and cop[i][j] != 1:
+                cnt += 1
+    # print(lst)
+    # for i in visit:
+    #     print(i)
+
+    return cnt
 
 
-print(max_cnt)
+answer = 0
+
+for lst in combinations(empty, 3):
+    cnt = func(lst)
+    # break
+    answer = max(answer, cnt)
+    # break
+
+print(answer)
