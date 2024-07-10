@@ -1,7 +1,7 @@
 s1 = input()
 s2 = input()
 
-dp = [[0] * (len(s2) + 1) for _ in range(len(s1) + 1)]
+dp = [[0 for _ in range(len(s2) + 1)] for _ in range(len(s1) + 1)]
 
 for i in range(1, len(s1) + 1):
     for j in range(1, len(s2) + 1):
