@@ -1,13 +1,18 @@
 t = int(input())
 
+dp = [0] * 101
+dp[1] = 1
+dp[2] = 1
+dp[3] = 1
+dp[4] = 2
+dp[5] = 2
+dp[6] = 3
+
+
+for i in range(7, 101):
+    dp[i] = dp[i-2] + dp[i-3]
 
 for _ in range(t):
-    dp = [0, 1, 1, 1, 2, 2, 3, 4, 5, 7, 9]
     n = int(input())
-    if n <= 10:
-        print(dp[n])
-    else:
-        for i in range(11, n+2):
-            num = dp[-2] + dp[-3]
-            dp.append(num)
-        print(dp[n])
+
+    print(dp[n])
