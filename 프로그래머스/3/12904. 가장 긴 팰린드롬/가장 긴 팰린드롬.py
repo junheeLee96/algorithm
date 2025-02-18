@@ -1,11 +1,9 @@
-def isPalindrome(x):
-    if x==x[::-1]:
-        return True
 def solution(s):
-    MAX=0
+    answer = 1
+    
     for i in range(len(s)):
-        for j in range(i+1,len(s)+1):
-            if isPalindrome(s[i:j]):
-                if MAX<len(s[i:j]):
-                    MAX=len(s[i:j])
-    return MAX
+        for j in range(i,len(s)+1):
+            if s[i:j] == s[i:j][::-1]:
+                answer = max(answer,len(s[i:j]))
+
+    return answer
