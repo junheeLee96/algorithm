@@ -8,11 +8,11 @@ function solution(storage, requests) {
         arr.push(a)
     }
     arr.push(Array.from({length:m+2},()=>''));
-    
+
     for(let str of requests){
         bfs(arr,str,n+2,m+2)
     }
-    
+
     for(let a of arr){
         answer += a.filter(v => v !== '').length;
     }
@@ -26,16 +26,16 @@ function bfs(arr,str,n,m){
     let visit = Array.from({length:n},()=>Array.from({length:m},()=>false));
     visit[0][0] = true
     let q= [[0,0]];
-    
+
     let his = {}
-    
+
     while(q.length > 0){
         const [x,y] = q.pop();
-        
+
         for(let i=0; i < 4; i++){
             const nx = x + dx[i];
             const ny = y + dy[i];
-            
+
             if(0 <= nx && nx < n && 0 <= ny && ny < m && visit[nx][ny] === false){
                 if(str[0] === arr[nx][ny]){
                     his[`${nx} ${ny}`] = 1
